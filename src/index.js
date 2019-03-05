@@ -16,7 +16,6 @@ const store = createStore(rootReducer);
 async function dispatchUpdates() {
   const data = await getVehicleData();
   if (data) {
-    console.log(data);
     const lastPolltime = Date.now() - data.secsSinceReport * 1000;
     store.dispatch(locUpdate(data.lat, data.lon, lastPolltime));
   } else {
