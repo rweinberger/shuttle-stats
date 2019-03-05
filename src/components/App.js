@@ -1,10 +1,10 @@
 import React from 'react'
 import MapContainer from '../containers/MapContainer'
-// import Header from '../containers/Header'
+import Header from '../containers/Header'
 
 const App = () => (
   <div>
-    {/* <Header /> */}
+    <Header />
     <MapContainer />
   </div>
 )

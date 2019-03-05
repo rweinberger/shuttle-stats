@@ -1,54 +1,64 @@
 import { combineReducers } from 'redux'
 
 // each topology action pushes a new topology snapshot to the state
-function locations(
-  state = [{
+function vehicles(
+  state = {
     vehicleId: null,
     lat: null,
     long: null
-  }], action) {
+  }, action) {
   switch (action.type) {
     case 'LOC_UPDATE':
-      return [
+      return {
         ...state,
-        {
-          lat: action.lat,
-          long: action.long
-        }
-      ]
-    case 'COME_ONLINE':
-      return [
+        lat: action.lat,
+        long: action.long
+      }
+    case 'IS_OFFLINE':
+      return {
         ...state,
-        {
-          vehicleId: action.vehicleId
-        }
-      ]
-    case 'GO_OFFLINE':
-      return [
-        ...state,
-        {
-          vehicleId: null,
-          lat: null,
-          long: null
-        }
-      ]
+        vehicleId: null,
+        lat: null,
+        long: null
+      }
     default:
       return state
   }
 }
 
-// // set displayTime
-// function displayTime(state = 'MOST_RECENT', action) {
-//   switch (action.type) {
-//     case 'SET_DISPLAY_TIME':
-//       return action.displayTime
-//     default:
-//       return state
-//   }
-// }
+function metadata(
+  state = {
+    lastPollTime: Date.now(),
+    online: false,
+    unitsOnline: 0,
+    unitsOffline: 1,
+    totalUnits: 1
+  }, action) {
+  switch (action.type) {
+    case 'LOC_UPDATE':
+      return {
+        ...state,
+        lastPollTime: action.lastPollTime,
+        online: true,
+        unitsOnline: state.unitsOnline + 1,
+        totalUnits: state.totalUnits + 1
+      }
+    case 'IS_OFFLINE':
+      console.log(state);
+      return {
+        ...state,
+        online: false,
+        unitsOffline: state.unitsOffline + 1,
+        totalUnits: state.totalUnits + 1
+      }
+    default:
+      return state
+  }
+}
 
 const apmApp = combineReducers({
-  locations
+  vehicles: vehicles,
+  metadata: metadata
 })
 
 export default apmApp

@@ -1,14 +1,10 @@
-export const locUpdate = (lat, long) => ({
+export const locUpdate = (lat, long, lastPollTime) => ({
   type: 'LOC_UPDATE',
+  lastPollTime: lastPollTime,
   lat: lat,
   long: long
 })
 
-export const comeOnline = vehicleId => ({
-  type: 'COME_ONLINE',
-  vehicleId: vehicleId
-})
-
-export const goOffline = () => ({
-  type: 'GO_OFFLINE'
+export const isOffline = () => ({
+  type: 'IS_OFFLINE'
 })
