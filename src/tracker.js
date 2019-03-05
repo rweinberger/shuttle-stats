@@ -49,18 +49,20 @@ function fetch(route) {
 }
 
 // Gets and prints shuttle stats to console.
-async function main() {
-  const res = await getVehicleData();
-  TOTAL_UNITS++;
-  if (res) {
-    console.log(res.routeTag + " route @ " + res.lat + ", " + res.lon);
-    console.log(res);
-  } else {
-    const last_seen = POLL_TIME_LAST == 0 ? INITIAL_TIME : POLL_TIME_LAST;
-    console.log("offline since " + new Date(last_seen));
-  }
-  console.log("offline " + (UNITS_OFFLINE/TOTAL_UNITS)*100 + "% of the time");
-}
+// async function main() {
+//   const res = await getVehicleData();
+//   TOTAL_UNITS++;
+//   if (res) {
+//     console.log(res.routeTag + " route @ " + res.lat + ", " + res.lon);
+//     console.log(res);
+//   } else {
+//     const last_seen = POLL_TIME_LAST == 0 ? INITIAL_TIME : POLL_TIME_LAST;
+//     console.log("offline since " + new Date(last_seen));
+//   }
+//   console.log("offline " + (UNITS_OFFLINE/TOTAL_UNITS)*100 + "% of the time");
+// }
 
 // Get data every POLL_FREQ_MS.
-setInterval(main, POLL_FREQ_MS);
+// setInterval(main, POLL_FREQ_MS);
+
+export { getVehicleData };
